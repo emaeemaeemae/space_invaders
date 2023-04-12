@@ -1,8 +1,7 @@
 import config
-import utils
 
 from .ship import Ship
-from assets.assets import *
+from assets.assets import YELLOW_LASER, YELLOW_SPACE_SHIP
 
 
 class PlayerShip(Ship):
@@ -32,4 +31,3 @@ class PlayerShip(Ship):
     def move_down(self):
         self.y = min(self.y + config.VELOCITY,
                      config.HEIGHT - self.get_height() - 25)
-

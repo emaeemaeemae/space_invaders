@@ -1,7 +1,14 @@
 import random
 
 import config
-from assets.assets import *
+from assets.assets import (
+    RED_SPACE_SHIP,
+    RED_LASER,
+    BLUE_SPACE_SHIP,
+    BLUE_LASER,
+    GREEN_SPACE_SHIP,
+    GREEN_LASER
+)
 from .ship import Ship
 
 

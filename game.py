@@ -5,8 +5,8 @@ import config
 
 from typing import Optional
 from display import WINDOW
-from assets.assets import *
-from ships import Ship, EnemyShip, PlayerShip
+from assets.assets import BG, WHITE
+from ships import EnemyShip, PlayerShip
 
 
 class Game:
@@ -42,7 +42,7 @@ class Game:
         self.draw_ships()
 
         if self.lost:
-            lost_label = self.lost_font.render(f'You Lost!!!', True, WHITE)
+            lost_label = self.lost_font.render('You Lost!!!', True, WHITE)
             x = (config.WIDTH - lost_label.get_width()) // 2
             y = (config.HEIGHT - lost_label.get_height()) // 2
             self.window.blit(lost_label, (x, y))
@@ -62,8 +62,6 @@ class Game:
         self.player_ship = ship
 
     def generate_enemies(self):
-        # for _ in range(self.level + 5):
-        #     self.add_enemy_ship(EnemyShip.generate_enemy())
         while len(self.enemy_ships) < self.level:
             self.add_enemy_ship(EnemyShip.generate_enemy())
 
