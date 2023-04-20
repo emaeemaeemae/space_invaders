@@ -78,12 +78,12 @@ class Game:
             self.lives -= 1
             self.enemy_ships.remove(enemy)
 
-    def tick(self):
+    def move_objects(self):
         if self.lost:
             return
         for enemy in self.enemy_ships[:]:
             enemy.move(self.level)
-            if not random.randint(0, 5 * config.FPS):
+            if not random.randint(0, 1 * config.FPS):
                 enemy.shoot()
             enemy.move_lasers([self.player_ship])
             self.check_lives(enemy)
@@ -93,3 +93,16 @@ class Game:
     def check_lost(self):
         if self.lives <= 0:
             self.lost = True
+
+    def check_health(self):
+        if self.player_ship.health <= 0:
+            self.lives -= 1
+            self.player_ship.reset_health()
+
+    def tick(self):
+        self.check_health()
+        self.check_lost()
+        self.check_next_level()
+
+        self.move_objects()
+        self.redraw_window()

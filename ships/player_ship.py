@@ -31,3 +31,6 @@ class PlayerShip(Ship):
     def move_down(self):
         self.y = min(self.y + config.VELOCITY,
                      config.HEIGHT - self.get_height() - 25)
+
+    def reset_health(self):
+        self.health = self.max_health

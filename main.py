@@ -8,12 +8,7 @@ def main():
     clock = pygame.time.Clock()
     while game.run:
         clock.tick(game.FPS)
-
-        game.check_lost()
-        game.check_next_level()
-
         game.tick()
-        game.redraw_window()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -24,6 +19,8 @@ def main():
             game.run = False
 
         if game.lost:
+            if keys[pygame.K_r]:
+                game = Game()
             continue
 
         if keys[pygame.K_LEFT]:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pygame
 
 import config
@@ -56,7 +58,7 @@ class Ship:
     def get_height(self):
         return self.image.get_height()
 
-    def move_lasers(self, enemies):
+    def move_lasers(self, enemies: list[Ship]):
         is_player = 1 if self.__class__.__name__ == 'PlayerShip' else -1
         self.cooldown()
         for laser in self.lasers[:]:
@@ -68,5 +70,8 @@ class Ship:
                     if utils.collide(laser, enemy):
                         enemy.health -= 50
                         if enemy.health <= 0:
-                            enemies.remove(enemy)
+                            if is_player == 1:
+                                enemies.remove(enemy)
+                            else:
+                                enemies[0].health = 0
                         self.lasers.remove(laser)
