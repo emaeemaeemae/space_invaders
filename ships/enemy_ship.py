@@ -1,6 +1,8 @@
 import random
 
 import config
+import utils
+
 from assets.assets import (
     RED_SPACE_SHIP,
     RED_LASER,
@@ -19,7 +21,7 @@ class EnemyShip(Ship):
         'green': (GREEN_SPACE_SHIP, GREEN_LASER)
     }
 
-    def __init__(self, x, y, color, health=100):
+    def __init__(self, x: int, y: int, color: utils.Tcolor, health: int = 100):
         super().__init__(x, y, health)
         self.image, self.laser_image = self.COLOR_MAP[color]
         self.set_mask()

@@ -1,11 +1,12 @@
 import pygame
+
 import config
 import utils
 
 
 class Laser:
 
-    def __init__(self, x, y, image):
+    def __init__(self, x: int, y: int, image: utils.Timage):
         self.x = x
         self.y = y
         self.image = image

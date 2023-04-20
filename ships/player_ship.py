@@ -5,7 +5,7 @@ from assets.assets import YELLOW_LASER, YELLOW_SPACE_SHIP
 
 
 class PlayerShip(Ship):
-    def __init__(self, x=0, y=0, health=100):
+    def __init__(self, x: int = 0, y: int = 0, health: int = 100):
         super().__init__(x, y, health)
         self.image = YELLOW_SPACE_SHIP
         self.laser_image = YELLOW_LASER

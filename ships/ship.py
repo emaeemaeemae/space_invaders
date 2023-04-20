@@ -11,20 +11,23 @@ from assets.assets import GREEN, RED
 
 class Ship:
     def __init__(self, x: int, y: int, health: int = 100):
+        # draw property
         self.x = x
         self.y = y
-        self.health = health
-        self.max_health = health
         self.image = None
         self.laser_image = None
         self.mask = None
+
+        # other property
+        self.health = health
+        self.max_health = health
         self.lasers = []
         self.cool_down_counter = 0
 
     def set_mask(self):
         self.mask = pygame.mask.from_surface(self.image)
 
-    def draw(self, window):
+    def draw(self, window: utils.Timage):
         for laser in self.lasers:
             laser.draw(window)
         window.blit(self.image, (self.x, self.y))

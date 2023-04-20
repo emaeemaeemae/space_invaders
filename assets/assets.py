@@ -2,7 +2,9 @@ import os
 
 from pygame.image import load
 from pygame.transform import scale
+
 from config import WIDTH, HEIGHT
+
 # Enemy ships
 RED_SPACE_SHIP = load(os.path.join('assets', 'ship_red_small.png'))
 BLUE_SPACE_SHIP = load(os.path.join('assets', 'ship_blue_small.png'))

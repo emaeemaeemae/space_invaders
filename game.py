@@ -1,9 +1,11 @@
 import random
 
 import pygame
+
 import config
 
 from typing import Optional
+
 from display import WINDOW
 from assets.assets import BG, WHITE
 from ships import EnemyShip, PlayerShip
@@ -74,7 +76,7 @@ class Game:
         if len(self.enemy_ships) == 0:
             self.next_level()
 
-    def check_lives(self, enemy):
+    def check_lives(self, enemy: EnemyShip):
         if enemy.y + enemy.get_height() > config.HEIGHT:
             self.lives -= 1
             self.enemy_ships.remove(enemy)
