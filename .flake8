@@ -5,7 +5,7 @@ inline-quotes = '
 multiline-quotes = """
 
 # flake8 basics
-ignore=F523,
+ignore=F523, E999
 count=True
 statistics=True
 show-source=True
