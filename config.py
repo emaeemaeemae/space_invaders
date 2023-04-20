@@ -14,3 +14,8 @@ ENEMY_SHIP_HEIGHT = 50
 VELOCITY = 5
 SHIP_SHOOT_COOLDOWN = 30
 PLAYER_LASER_SPEED = 5
+DIFFICULT = {
+    'easy': {
+        'enemy_laser_freq': 5
+    }
+}

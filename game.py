@@ -17,6 +17,7 @@ class Game:
         self.player_ship: Optional[PlayerShip] = None
         self.enemy_ships = []
         self.level = 1
+        self.difficult = 'easy'
         self.lives = config.LIVES
         self.font = pygame.font.SysFont('comicsans', config.FONT_SIZE)
         self.lost_font = pygame.font.SysFont('comicsans', config.FONT_SIZE * 3)
@@ -83,7 +84,8 @@ class Game:
             return
         for enemy in self.enemy_ships[:]:
             enemy.move(self.level)
-            if not random.randint(0, 1 * config.FPS):
+            laser_freq = config.DIFFICULT[self.difficult]['enemy_laser_freq']
+            if not random.randint(0, laser_freq * config.FPS):
                 enemy.shoot()
             enemy.move_lasers([self.player_ship])
             self.check_lives(enemy)
