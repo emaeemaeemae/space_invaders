@@ -71,13 +71,12 @@ class Ship:
             laser.move(-config.PLAYER_LASER_SPEED * is_player)
             if laser.off_screen():
                 self.lasers.remove(laser)
-            else:
-                for enemy in enemies[:]:
-                    if utils.collide(laser, enemy):
-                        enemy.health -= 50
-                        if enemy.health <= 0:
-                            if is_player == 1:
-                                enemies.remove(enemy)
-                            else:
-                                enemies[0].health = 0
-                        self.lasers.remove(laser)
+                continue
+
+            for enemy in enemies[:]:
+                if utils.collide(laser, enemy):
+                    enemy.health -= 50
+                    self.lasers.remove(laser)
+
+                    if enemy.health <= 0 and is_player == 1:
+                        enemies.remove(enemy)
