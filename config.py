@@ -1,7 +1,13 @@
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
 WIDTH = 800
 HEIGHT = 800
 FPS = 60
-LIVES = 1
+LIVES = int(os.getenv('LIVES'))
 FONT_SIZE = 30
 ENEMY_SHIP_WIDTH = 50
 ENEMY_SHIP_HEIGHT = 50
