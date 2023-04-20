@@ -32,6 +32,9 @@ class Ship:
             laser.draw(window)
         window.blit(self.image, (self.x, self.y))
 
+        self.draw_healthbar(window)
+
+    def draw_healthbar(self, window: utils.Timage):
         green_width = (self.health / self.max_health) * self.get_width()
         red_width = self.get_width() - green_width
         hp_line_y = self.y + self.get_height() + 10
