@@ -31,6 +31,66 @@ class Game:
         self.set_player_ship(PlayerShip())
         self.generate_enemies()
 
+    # region Ships
+    def add_enemy_ship(self, ship):
+        self.enemy_ships.append(ship)
+
+    def set_player_ship(self, ship):
+        self.player_ship = ship
+
+    def generate_enemies(self):
+        while len(self.enemy_ships) < self.level:
+            self.add_enemy_ship(EnemyShip.generate_enemy())
+
+    # endregion
+
+    def next_level(self):
+        self.level += 1
+        self.generate_enemies()
+
+    # region Game Tick
+    def tick(self):
+        self.check_player_health()
+        self.check_lost()
+        self.check_next_level()
+
+        self.move_objects()
+        self.redraw_window()
+
+    def check_player_health(self):
+        if self.player_ship.health <= 0:
+            self.lives -= 1
+            self.player_ship.reset_health()
+
+    def check_lost(self):
+        if self.lives <= 0:
+            self.lost = True
+
+    def check_next_level(self):
+        if len(self.enemy_ships) == 0:
+            self.next_level()
+
+    def check_lives(self, enemy: EnemyShip):
+        if enemy.y + enemy.get_height() > config.HEIGHT:
+            self.lives -= 1
+            self.enemy_ships.remove(enemy)
+
+    def move_objects(self):
+        if self.lost:
+            return
+        for enemy in self.enemy_ships[:]:
+            enemy.move(self.level)
+            laser_freq = config.DIFFICULT[self.difficult]['enemy_laser_freq']
+            if not random.randint(0, laser_freq * config.FPS):
+                enemy.shoot()
+            enemy.move_lasers([self.player_ship])
+            self.check_lives(enemy)
+
+        self.player_ship.move_lasers(self.enemy_ships)
+
+    # endregion
+
+    # region Draw
     def redraw_window(self):
         self.window.blit(BG, (0, 0))
 
@@ -58,55 +118,4 @@ class Game:
         for ship in self.enemy_ships:
             ship.draw(self.window)
 
-    def add_enemy_ship(self, ship):
-        self.enemy_ships.append(ship)
-
-    def set_player_ship(self, ship):
-        self.player_ship = ship
-
-    def generate_enemies(self):
-        while len(self.enemy_ships) < self.level:
-            self.add_enemy_ship(EnemyShip.generate_enemy())
-
-    def next_level(self):
-        self.level += 1
-        self.generate_enemies()
-
-    def check_next_level(self):
-        if len(self.enemy_ships) == 0:
-            self.next_level()
-
-    def check_lives(self, enemy: EnemyShip):
-        if enemy.y + enemy.get_height() > config.HEIGHT:
-            self.lives -= 1
-            self.enemy_ships.remove(enemy)
-
-    def move_objects(self):
-        if self.lost:
-            return
-        for enemy in self.enemy_ships[:]:
-            enemy.move(self.level)
-            laser_freq = config.DIFFICULT[self.difficult]['enemy_laser_freq']
-            if not random.randint(0, laser_freq * config.FPS):
-                enemy.shoot()
-            enemy.move_lasers([self.player_ship])
-            self.check_lives(enemy)
-
-        self.player_ship.move_lasers(self.enemy_ships)
-
-    def check_lost(self):
-        if self.lives <= 0:
-            self.lost = True
-
-    def check_player_health(self):
-        if self.player_ship.health <= 0:
-            self.lives -= 1
-            self.player_ship.reset_health()
-
-    def tick(self):
-        self.check_player_health()
-        self.check_lost()
-        self.check_next_level()
-
-        self.move_objects()
-        self.redraw_window()
+    # endregion

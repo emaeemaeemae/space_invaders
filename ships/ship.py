@@ -24,9 +24,19 @@ class Ship:
         self.lasers = []
         self.cool_down_counter = 0
 
+    # region Utils
     def set_mask(self):
         self.mask = pygame.mask.from_surface(self.image)
 
+    def get_width(self):
+        return self.image.get_width()
+
+    def get_height(self):
+        return self.image.get_height()
+
+    # endregion
+
+    # region Draw
     def draw(self, window: utils.Timage):
         for laser in self.lasers:
             laser.draw(window)
@@ -46,6 +56,9 @@ class Ship:
                          (self.x + green_width, hp_line_y,
                           red_width, 7))
 
+    # endregion
+
+    # region Lasers
     def cooldown(self):
         if self.cool_down_counter >= config.SHIP_SHOOT_COOLDOWN:
             self.cool_down_counter = 0
@@ -57,12 +70,6 @@ class Ship:
             laser = Laser(self.x, self.y, self.laser_image)
             self.lasers.append(laser)
             self.cool_down_counter = 1
-
-    def get_width(self):
-        return self.image.get_width()
-
-    def get_height(self):
-        return self.image.get_height()
 
     def move_lasers(self, enemies: list[Ship]):
         is_player = 1 if self.__class__.__name__ == 'PlayerShip' else -1
@@ -80,3 +87,5 @@ class Ship:
 
                     if enemy.health <= 0 and is_player == 1:
                         enemies.remove(enemy)
+
+    # endregion

@@ -14,6 +14,7 @@ class PlayerShip(Ship):
         self.x = (config.WIDTH - self.get_width()) // 2
         self.y = config.HEIGHT - self.get_height() - 50
 
+    # region Move
     def move_left(self):
         self.x -= config.VELOCITY
         if self.x < 0 - self.get_width():
@@ -31,6 +32,8 @@ class PlayerShip(Ship):
     def move_down(self):
         self.y = min(self.y + config.VELOCITY,
                      config.HEIGHT - self.get_height() - 25)
+
+    # endregion
 
     def reset_health(self):
         self.health = self.max_health
